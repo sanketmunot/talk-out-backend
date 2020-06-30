@@ -16,23 +16,24 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.get('/', function (req, res) {
+app.get('/home', function (req, res) {
 
-
+res.send("success")
 })
 
 app.post('/login', function (req, res) {
     var username = req.body.username
     var password = req.body.password
     var auth = false
-    user = db.getCollection('USER').find({
+    console.log(req.body.username)
+    user = db.getCollection('USER').findObject({
         'username': username,
         'password': password
     })
-    if (user.length != 0) {
+    if (user != null) {
         auth = true
     }
-   
+    
     res.send({ auth: auth })
 })
 
